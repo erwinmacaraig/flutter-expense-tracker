@@ -12,9 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Personal Expense Tracker',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
+        accentColor: Colors.amber,
       ),
       home: MyHomePage(),
     );
@@ -55,6 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _startAddNewTransaction(BuildContext ctx) {
+    // _startAddNewTransaction is the function we created to call showModalBottomSheet
     showModalBottomSheet(
         context: ctx,
         builder: (_) {
@@ -86,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
-        title: const Text('Expense Planner'),
+        title: const Text('Personal Expense Tracker'),
         actions: [
           IconButton(
             icon: Icon(
