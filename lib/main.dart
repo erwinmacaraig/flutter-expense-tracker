@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import './widgets/transaction_list.dart';
 import './widgets/new_transaction.dart';
@@ -14,9 +16,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Personal Expense Tracker',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
-        accentColor: Colors.amber,
-      ),
+          primarySwatch: Colors.purple,
+          accentColor: Colors.amber,
+          fontFamily: 'Quicksand',
+          textTheme: ThemeData.light().textTheme.copyWith(
+              titleMedium: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16)),
+          appBarTheme: AppBarTheme(
+              titleTextStyle: TextStyle(fontFamily: 'OpenSans', fontSize: 20,
+              fontWeight: FontWeight.bold)),
       home: MyHomePage(),
     );
   }
@@ -88,7 +98,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
-        title: const Text('Personal Expense Tracker'),
+        title: const Text(
+          'Personal Expense Tracker',
+        ),
         actions: [
           IconButton(
             icon: Icon(
