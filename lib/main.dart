@@ -1,8 +1,7 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import './widgets/transaction_list.dart';
 import './widgets/new_transaction.dart';
+import './widgets/chart.dart';
 import './models/transaction.dart';
 
 void main() {
@@ -25,8 +24,10 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 16)),
           appBarTheme: AppBarTheme(
-              titleTextStyle: TextStyle(fontFamily: 'OpenSans', fontSize: 20,
-              fontWeight: FontWeight.bold)),
+              titleTextStyle: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold))),
       home: MyHomePage(),
     );
   }
@@ -42,20 +43,36 @@ class _MyHomePageState extends State<MyHomePage> {
     Transaction(
       id: 't1',
       title: 'New Shoes',
-      amount: 35.25,
-      date: DateTime.now(),
+      amount: 5.25,
+      date: DateTime.now().subtract(Duration(days: 2)),
     ),
     Transaction(
       id: 't2',
       title: 'Weekly Groceries',
       amount: 16.25,
-      date: DateTime.now(),
+      date: DateTime.now().subtract(Duration(days: 1)),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'Gym Membership',
+      amount: 8,
+      date: DateTime.now().subtract(Duration(days: 1)),
     ),
   ];
 
+  List<Transaction> get _recentTransactions {
+    return _userTransactions.where((tx) {
+      return tx.date.isAfter(
+        DateTime.now().subtract(
+          const Duration(days: 7),
+        ),
+      );
+    }).toList();
+  }
+
   void _addNewTransaction(String title, double amount) {
     final newTx = Transaction(
-        id: DateTime.november.toString(),
+        id: DateTime.now().toString(),
         title: title,
         amount: amount,
         date: DateTime.now());
@@ -115,14 +132,15 @@ class _MyHomePageState extends State<MyHomePage> {
               // crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-            Container(
-              width: double.infinity,
-              child: const Card(
-                color: Colors.blue,
-                elevation: 5,
-                child: Text('CHART'),
-              ),
-            ),
+            // Container(
+            //   width: double.infinity,
+            //   child: const Card(
+            //     color: Colors.blue,
+            //     elevation: 5,
+            //     child: Text('CHART'),
+            //   ),
+            // ),
+            Chart(_recentTransactions),
             TransactionList(_userTransactions),
           ])),
     );
